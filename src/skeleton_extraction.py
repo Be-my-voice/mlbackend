@@ -33,7 +33,7 @@ def extract_skeleton(filename):
                     y_data.append(j.y)
         
         except Exception as e:
-             print(e)
+            print(f"Error: {e}")
 
         finally:
             data_x.append(x_data)

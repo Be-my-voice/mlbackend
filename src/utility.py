@@ -1,6 +1,7 @@
 import base64
 import random
 import string
+import os
 
 def base64ToVideo(filedata):
 
@@ -13,7 +14,7 @@ def base64ToVideo(filedata):
             f.write(img_recovered)
             return file_name
     except Exception as e:
-        print(e)
+        print(f"Error: {e}")
         return False
 
 
@@ -21,3 +22,10 @@ def generate_random_name(length):
     characters = string.ascii_letters  # includes uppercase and lowercase letters
     random_name = ''.join(random.choice(characters) for _ in range(length))
     return random_name
+
+
+def remove_video_file(filename):
+    try:
+        os.remove(filename)
+    except OSError as e:
+        print(f"Error: {e}")
