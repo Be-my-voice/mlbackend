@@ -20,6 +20,9 @@ def read_item(item_id: int, q: Union[str, None] = None):
 
 @app.post("/predict/video")
 def predict_from_video(base64Video: Base64Video):
-    print(base64Video.data)
+    # Convert to video
+    # Extract skeleton
+    # Inference model
+
     return base64Video
 
