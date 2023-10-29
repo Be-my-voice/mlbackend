@@ -1,6 +1,12 @@
 from typing import Union
-from fastapi import FastAPI
-from pydantic import BaseModel 
+from typing import List
+from fastapi import FastAPI, Form, UploadFile, File
+from pydantic import BaseModel
+import ffmpeg
+from io import BytesIO
+import base64
+
+from src.utility import base64ToVideo
 
 app = FastAPI()
 
@@ -19,10 +25,15 @@ def read_item(item_id: int, q: Union[str, None] = None):
 
 
 @app.post("/predict/video")
-def predict_from_video(base64Video: Base64Video):
-    # Convert to video
-    # Extract skeleton
-    # Inference model
+def upload(video: Base64Video):
+    # Convert base64 to mp4
+    fileName = base64ToVideo(video.data)
 
-    return base64Video
+    if(not fileName):
+        return {"message:" "We fucked up"}
+    
+    # Extract skelton
+
+        
+    
 
