@@ -9,6 +9,8 @@ from dotenv import load_dotenv
 from services.utility import base64ToVideo, remove_video_file
 from services.skeleton_extraction import extract_skeleton
 from services.lstm import LSTM
+from services.video_adjustment import check_video_resolution
+
 load_dotenv()
 class Base64Video(BaseModel):
     data: str
@@ -46,6 +48,14 @@ def upload(video: Base64Video):
         return {"message": "Invalid file"}
     
     # If the video file is not in 720x720, change it
+    status = check_video_resolution(fileName)
+    if(status == 1):
+        # Change resulation
+        pass
+    elif(status == 2):
+        return {"message": "Could not change resulation"}
+    else:
+        pass
     
     # Extract skeleton
     x, y = extract_skeleton(fileName)
