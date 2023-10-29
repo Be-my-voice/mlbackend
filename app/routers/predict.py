@@ -1,10 +1,12 @@
 from fastapi import APIRouter
-from app.dto.base64video_dto import Base64Video
 
 from app.utils.utils import base64ToVideo, remove_video_file
 from app.services.skeleton_extraction import extract_skeleton
 from app.services.video_adjustment import check_video_resolution, convert_to_720x720
 from app.utils.async_utils import get_resource
+
+from app.dto.base64video_req_dto import Base64Video
+from app.dto.prediction_res_dto import Prediction
 
 
 router = APIRouter(
@@ -12,13 +14,13 @@ router = APIRouter(
     responses={404: {"description": "Not found"}},
 )
 
-@router.post("/video")
+@router.post("/video", response_model=Prediction)
 def upload(video: Base64Video):
     # Convert base64 to mp4
     fileName = base64ToVideo(video.data)
 
     if(not fileName):
-        return {"message": "Invalid file"}
+        return Prediction(**{"prediction": "", "message": "Invalid file"})
     
     # If the video file is not in 720x720, change it
     status = check_video_resolution(fileName)
@@ -26,7 +28,7 @@ def upload(video: Base64Video):
     if(status == 1):
         convert_to_720x720(fileName)
     elif(status == 2):
-        return {"message": "Could not change resulation"}
+        return Prediction(**{"prediction": "", "message": "Could not change resulation"})
     else:
         pass
     
@@ -39,8 +41,8 @@ def upload(video: Base64Video):
 
     remove_video_file(fileName)
 
-    if(not predicted_class):
-        return {"message:" "Could not predict sign"}
+    if(not predicted_class):  
+        return Prediction(**{"prediction": "", "message": "Could not predict sign"})
 
     
-    return {"sign": predicted_class}
+    return Prediction(**{"prediction": predicted_class, "message": "Success"})

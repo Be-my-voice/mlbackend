@@ -5,7 +5,6 @@ from dotenv import load_dotenv
 
 from app.utils.async_utils import lifespan
 from app.routers.predict import router
-from app.dto.base64video_dto import Base64Video
 
 load_dotenv()
 
