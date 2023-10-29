@@ -3,7 +3,8 @@ from typing import Union
 from typing import List
 from fastapi import FastAPI
 from pydantic import BaseModel
-from src.utility import base64ToVideo
+
+from src.utility import base64ToVideo, remove_video_file
 from src.skeleton_extraction import extract_skeleton
 from src.lstm import LSTM
 
@@ -48,10 +49,12 @@ def upload(video: Base64Video):
     # Predict sign
     predicted_class = ml_models['lstm_model'].predict(x, y)
 
+    remove_video_file(fileName)
+    
     if(not predicted_class):
         return {"message:" "Could not predict sign"}
 
-    # return {'x': x, 'y': y}
+    
     return {"sign": predicted_class}
 
         
