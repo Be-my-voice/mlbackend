@@ -7,6 +7,7 @@ from io import BytesIO
 import base64
 
 from src.utility import base64ToVideo
+from src.skeleton_extraction import extract_skeleton
 
 app = FastAPI()
 
@@ -32,7 +33,12 @@ def upload(video: Base64Video):
     if(not fileName):
         return {"message:" "We fucked up"}
     
-    # Extract skelton
+    # Extract skeleton
+    x, y = extract_skeleton(fileName)
+    print(x.shape, y.shape)
+
+    # return {'x': x, 'y': y}
+    return {"message": "Hello"}
 
         
     
