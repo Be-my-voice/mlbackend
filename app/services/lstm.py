@@ -6,7 +6,7 @@ class LSTM():
         self.classes = classes
         self.max_frames = max_frames
         self.step_size = step_size
-        self.lstm_model = tf.keras.models.load_model('./ml_models/six_class_model_3_frame_steps')
+        self.lstm_model = tf.keras.models.load_model('./app/ml_models/six_class_model_3_frame_steps')
         self.lstm_model.summary()
 
     
@@ -36,12 +36,17 @@ class LSTM():
 
     def predict(self, x, y):
         x, y = self.preprocess(x, y)
+        predicted_class = False
 
-        predicted_probabilities = self.lstm_model.predict([x, y])
+        try:
+            predicted_probabilities = self.lstm_model.predict([x, y])
 
-        # Convert probabilities to class labels by taking the argmax
-        predicted_labels = np.argmax(predicted_probabilities, axis=1)
-        predicted_class = self.find_class(predicted_labels[0])
+            # Convert probabilities to class labels by taking the argmax
+            predicted_labels = np.argmax(predicted_probabilities, axis=1)
+            predicted_class = self.find_class(predicted_labels[0])
 
-        print(f"Successful prediction: {predicted_class}")
-        return predicted_class
+            print(f"Successful prediction: {predicted_class}")
+        except Exception as e:
+            print(f"Error: {e}")
+        finally:
+            return predicted_class
