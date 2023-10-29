@@ -40,7 +40,7 @@ def upload(video: Base64Video):
     fileName = base64ToVideo(video.data)
 
     if(not fileName):
-        return {"message:" "We fucked up"}
+        return {"message": "Invalid file"}
     
     # Extract skeleton
     x, y = extract_skeleton(fileName)
@@ -50,7 +50,7 @@ def upload(video: Base64Video):
     predicted_class = ml_models['lstm_model'].predict(x, y)
 
     remove_video_file(fileName)
-    
+
     if(not predicted_class):
         return {"message:" "Could not predict sign"}
 
