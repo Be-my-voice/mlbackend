@@ -29,6 +29,7 @@ def upload(video: Base64Video):
     if(status == 1):
         convert_to_720x720(fileName)
     elif(status == 2):
+        remove_video_file(fileName)
         return Prediction(**{"prediction": "", "message": "Could not change resolation"})
     else:
         pass
@@ -36,6 +37,9 @@ def upload(video: Base64Video):
     # Extract skeleton
     x, y = extract_skeleton(fileName)
     print(x.shape, y.shape)
+
+    # Preprocess
+    x, y = get_resource('lstm_model').preprocess_video_landmarks(x, y)
 
     # Predict sign
     predicted_class = get_resource('lstm_model').predict(x, y)
@@ -57,6 +61,9 @@ def upload(landmarkObj: JsonLandmark):
 
     if(err):
         return Prediction(**{"prediction": "", "message": "Invalid landmarks object"})
+
+    # Preprocess
+    x, y = get_resource('lstm_model').preprocess_text_landmarks(x, y)
 
     # Predict sign
     predicted_class = get_resource('lstm_model').predict(x, y)
