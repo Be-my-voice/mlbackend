@@ -53,9 +53,9 @@ def upload(video: Base64Video):
 def upload(landmarkObj: JsonLandmark):
 
     # Extract x and y
-    x, y = get_resource('lstm_model').json_to_numpy(landmarkObj)
+    x, y, err = get_resource('lstm_model').json_to_numpy(landmarkObj)
 
-    if(not x and not y):
+    if(err):
         return Prediction(**{"prediction": "", "message": "Invalid landmarks object"})
 
     # Predict sign

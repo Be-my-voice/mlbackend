@@ -53,17 +53,17 @@ class LSTM():
         finally:
             return predicted_class
         
-    def json_to_numpy(obj: JsonLandmark):
+    def json_to_numpy(self, obj: JsonLandmark):
         try:
-            x_arr = [[sublist[i] for i in range(0, len(sublist), 2)] for sublist in obj.landmarks]
-            y_arr = [[sublist[i] for i in range(1, len(sublist), 2)] for sublist in obj.landmarks]
+            x = [[sublist[i] for i in range(0, len(sublist), 2)] for sublist in obj.landmarks]
+            y = [[sublist[i] for i in range(1, len(sublist), 2)] for sublist in obj.landmarks]
 
-            x_arr = np.array(x_arr)
-            y_arr = np.array(y_arr)
+            x = np.array(x)
+            y = np.array(y)
 
-            return x_arr, y_arr
+            return x, y, False
         except Exception as e:
             print(f"Error: {e}")
 
-            return False, False
+            return None, None, True
 
