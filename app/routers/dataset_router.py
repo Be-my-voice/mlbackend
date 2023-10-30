@@ -4,6 +4,7 @@ from app.services.dataset_service import list_signs, list_records, read_record
 from app.dto.sign_list_res_dto import SignRecordList
 from app.dto.record_list_res_dto import RecordList
 from app.dto.record_landmarks_dto import JsonLandmarkRes
+from app.dto.add_record_dto import AddRecord
 
 
 dataset_router = APIRouter(
@@ -31,4 +32,9 @@ def list_classes(class_name):
 @dataset_router.get("/record/{class_name}/{id}", response_model=JsonLandmarkRes)
 def list_classes(class_name, id):
     return read_record(class_name, id)
+
+
+@dataset_router.post("add-record")
+def add_record(record: AddRecord):
+    pass
 

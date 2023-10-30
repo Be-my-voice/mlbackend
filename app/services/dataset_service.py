@@ -1,11 +1,11 @@
 import os
 import glob
 import csv
-import json
 
 from app.dto.sign_list_res_dto import SignRecordList, SignRecord
 from app.dto.record_list_res_dto import RecordList
 from app.dto.record_landmarks_dto import JsonLandmarkRes
+from app.dto.add_record_dto import AddRecord
 
 def list_signs():
     dataset_path = os.getenv("DATASET_PATH")
@@ -99,4 +99,19 @@ def read_record(class_name: str, id: int):
     response.setLandmarks(json_data)
     response.setLandmarks("Success")
     return response
+
+def add_record(record: AddRecord):
+    class_name = record.class_name
+
+    dataset_path = os.getenv("DATASET_PATH")
+    subdirectory_path = os.path.join(dataset_path, class_name)
+
+    
+    # Check if the directory exists
+    if not os.path.exists(subdirectory_path):
+        # os.mkdir(subdirectory_path)
+        pass
+    else:
+        # Add to existing class
+        pass
 
