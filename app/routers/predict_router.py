@@ -29,6 +29,7 @@ def upload(video: Base64Video):
     if(status == 1):
         convert_to_720x720(fileName)
     elif(status == 2):
+        remove_video_file(fileName)
         return Prediction(**{"prediction": "", "message": "Could not change resolation"})
     else:
         pass
