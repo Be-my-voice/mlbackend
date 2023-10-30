@@ -6,3 +6,4 @@
 *.jpeg
 .env
 __pycache__/
+/dataset/*

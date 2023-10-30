@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 
 from app.utils.async_utils import lifespan
 from app.routers.predict import prediction_router
+from app.routers.serve_data import dataset_router
 
 load_dotenv()
 
@@ -21,6 +22,7 @@ def read_item(item_id: int, q: Union[str, None] = None):
 
 
 app.include_router(prediction_router, prefix="/predict")
+app.include_router(dataset_router, prefix="/datasets")
 
 
         
