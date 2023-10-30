@@ -1,0 +1,102 @@
+absl-py==1.4.0
+aggdraw==1.3.16
+annotated-types==0.6.0
+anyio==3.7.1
+asttokens @ file:///home/conda/feedstock_root/build_artifacts/asttokens_1670263926556/work
+astunparse==1.6.3
+attrs==23.1.0
+audioread==3.0.1
+backcall @ file:///home/conda/feedstock_root/build_artifacts/backcall_1592338393461/work
+backports.functools-lru-cache @ file:///home/conda/feedstock_root/build_artifacts/backports.functools_lru_cache_1687772187254/work
+blinker==1.6.2
+Bottleneck @ file:///opt/conda/conda-bld/bottleneck_1657175564434/work
+cachetools==5.3.1
+certifi==2023.7.22
+cffi==1.16.0
+charset-normalizer==3.2.0
+click==8.1.7
+comm @ file:///home/conda/feedstock_root/build_artifacts/comm_1691044910542/work
+contourpy @ file:///opt/conda/conda-bld/contourpy_1663827406301/work
+cycler @ file:///home/conda/feedstock_root/build_artifacts/cycler_1635519461629/work
+debugpy @ file:///croot/debugpy_1690905042057/work
+decorator==4.4.2
+entrypoints @ file:///home/conda/feedstock_root/build_artifacts/entrypoints_1643888246732/work
+exceptiongroup==1.1.3
+executing @ file:///home/conda/feedstock_root/build_artifacts/executing_1667317341051/work
+fastapi==0.104.0
+ffmpeg-python==0.2.0
+Flask==2.3.3
+flatbuffers==23.5.26
+fonttools==4.25.0
+future==0.18.3
+gast==0.4.0
+google-auth==2.22.0
+google-auth-oauthlib==1.0.0
+google-pasta==0.2.0
+grpcio==1.57.0
+h11==0.14.0
+h5py==3.9.0
+httptools==0.6.1
+idna==3.4
+imageio==2.31.6
+imageio-ffmpeg==0.4.9
+importlib-metadata==6.8.0
+itsdangerous==2.1.2
+Jinja2==3.1.2
+keras==2.13.1
+keras-tuner==1.3.5
+kt-legacy==1.0.5
+lazy_loader==0.3
+libclang==16.0.6
+librosa==0.10.1
+llvmlite==0.41.0
+Markdown==3.4.4
+MarkupSafe==2.1.3
+mediapipe==0.10.5
+moviepy==1.0.3
+msgpack==1.0.7
+munkres==1.1.4
+numba==0.58.0
+nvidia-cublas-cu11==11.11.3.6
+nvidia-cudnn-cu11==8.6.0.163
+oauthlib==3.2.2
+opencv-contrib-python==4.8.1.78
+opt-einsum==3.3.0
+Pillow==9.3.0
+ply==3.11
+pooch==1.7.0
+proglog==0.1.10
+protobuf==3.20.3
+pyasn1==0.5.0
+pyasn1-modules==0.3.0
+pycparser==2.21
+pydantic==2.4.2
+pydantic_core==2.10.1
+pydot==1.4.2
+PyQt5-sip==12.11.0
+python-dotenv==1.0.0
+python-multipart==0.0.6
+PyYAML==6.0.1
+requests==2.31.0
+requests-oauthlib==1.3.1
+rsa==4.9
+sniffio==1.3.0
+sounddevice==0.4.6
+soundfile==0.12.1
+soxr==0.3.6
+starlette==0.27.0
+tensorboard==2.13.0
+tensorboard-data-server==0.7.1
+tensorflow==2.13.0
+tensorflow-estimator==2.13.0
+tensorflow-io-gcs-filesystem==0.33.0
+termcolor==2.3.0
+tqdm==4.66.1
+urllib3==1.26.16
+uvicorn==0.23.2
+uvloop==0.19.0
+visualkeras==0.0.2
+watchfiles==0.21.0
+websockets==12.0
+Werkzeug==2.3.7
+wrapt==1.15.0
