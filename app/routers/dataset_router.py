@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from app.services.dataset import list_signs, list_records, read_record
+from app.services.dataset_service import list_signs, list_records, read_record
 from app.dto.sign_list_res_dto import SignRecordList
 from app.dto.record_list_res_dto import RecordList
 from app.dto.record_landmarks_dto import JsonLandmarkRes

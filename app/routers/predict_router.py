@@ -1,8 +1,8 @@
 from fastapi import APIRouter
 
 from app.utils.utils import base64ToVideo, remove_video_file
-from app.services.skeleton_extraction import extract_skeleton
-from app.services.video_adjustment import check_video_resolution, convert_to_720x720
+from app.services.skeleton_extraction_service import extract_skeleton
+from app.services.video_adjustment_service import check_video_resolution, convert_to_720x720
 from app.utils.async_utils import get_resource
 
 from app.dto.base64video_req_dto import Base64Video

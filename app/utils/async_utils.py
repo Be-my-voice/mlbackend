@@ -2,7 +2,7 @@ import os
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
 
-from app.services.lstm import LSTM
+from app.services.lstm_service import LSTM
 
 ml_models = {}
 
