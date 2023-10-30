@@ -1,8 +1,11 @@
 import os
 import glob
+import csv
+import json
 
 from app.dto.sign_list_res_dto import SignRecordList, SignRecord
 from app.dto.record_list_res_dto import RecordList
+from app.dto.record_landmarks_dto import JsonLandmarkRes
 
 def list_signs():
     dataset_path = os.getenv("DATASET_PATH")
@@ -31,7 +34,7 @@ def list_signs():
     return sign_list
 
 
-
+# List ids of all csv files in particular sign name
 def list_records(class_name: str):
     dataset_path = os.getenv("DATASET_PATH")
     subdirectory_path = os.path.join(dataset_path, class_name)
@@ -57,3 +60,43 @@ def list_records(class_name: str):
     
     record_list.setMessage("Successful")
     return record_list
+
+# Function to read csv content and convert into json
+def read_record(class_name: str, id: int):
+    dataset_path = os.getenv("DATASET_PATH")
+    subdirectory_path = os.path.join(dataset_path, class_name)
+    file_name = class_name + '_' + id + '.csv'
+    file_path = os.path.join(subdirectory_path, file_name)
+
+    response = JsonLandmarkRes(landmarks=[], message="")
+
+    if not os.path.exists(file_path):
+        response.setMessage("Record does not exist")
+        return response
+
+    # Read CSV file and convert it to a list of lists
+    data = []
+    try:
+        with open(file_path, 'r') as csv_file:
+            csv_reader = csv.reader(csv_file)
+            for row in csv_reader:
+                data.append(row)
+    except Exception as e:
+        print(f"Error: {e}")
+        response.setMessage("File read failed")
+        return response
+
+    # Read the CSV file and convert it to a JSON format
+
+    try:
+        json_data = []
+        for row in data:
+            json_data.append(row)
+    except Exception as e:
+        print(f"Error: {e}")
+        response.setMessage("JSON conversion failed")
+
+    response.setLandmarks(json_data)
+    response.setLandmarks("Success")
+    return response
+

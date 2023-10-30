@@ -1,8 +1,9 @@
 from fastapi import APIRouter
 
-from app.services.dataset import list_signs, list_records
+from app.services.dataset import list_signs, list_records, read_record
 from app.dto.sign_list_res_dto import SignRecordList
 from app.dto.record_list_res_dto import RecordList
+from app.dto.record_landmarks_dto import JsonLandmarkRes
 
 
 dataset_router = APIRouter(
@@ -25,4 +26,9 @@ def list_classes(class_name):
     record_list = list_records(class_name)
     # record_list = RecordList()
     return record_list
+
+
+@dataset_router.get("/record/{class_name}/{id}", response_model=JsonLandmarkRes)
+def list_classes(class_name, id):
+    return read_record(class_name, id)
 
