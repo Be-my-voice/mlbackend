@@ -10,12 +10,12 @@ from app.dto.json_req_dto import JsonLandmark
 from app.dto.prediction_res_dto import Prediction
 
 
-router = APIRouter(
+prediction_router = APIRouter(
     tags=["predict"],
     responses={404: {"description": "Not found"}},
 )
 
-@router.post("/video", response_model=Prediction)
+@prediction_router.post("/video", response_model=Prediction)
 def upload(video: Base64Video):
     # Convert base64 to mp4
     fileName = base64ToVideo(video.data)
@@ -49,7 +49,7 @@ def upload(video: Base64Video):
     return Prediction(**{"prediction": predicted_class, "message": "Success"})
 
 
-@router.post("/text", response_model=Prediction)
+@prediction_router.post("/text", response_model=Prediction)
 def upload(landmarkObj: JsonLandmark):
 
     # Extract x and y
