@@ -2,6 +2,7 @@ import mediapipe as mp
 import cv2
 from mediapipe.framework.formats import landmark_pb2
 import numpy as np
+import os
 
 mp_pose = mp.solutions.pose
 pose = mp_pose.Pose()
@@ -10,15 +11,24 @@ def extract_skeleton(filename):
     data_x = []
     data_y = []
 
+    frame_number = 0
+
     cap = cv2.VideoCapture(filename)
     while cap.isOpened():
         x_data = []
         y_data = []
 
+
         ret, frame = cap.read()
 
         if not ret:
             break
+
+        if(frame_number % int(os.getenv("STEP_SIZE")) != 0):
+             frame_number += 1
+             continue
+        else:
+             frame_number += 1
 
         try:
             rgbFrame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)

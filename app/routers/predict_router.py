@@ -37,6 +37,9 @@ def upload(video: Base64Video):
     x, y = extract_skeleton(fileName)
     print(x.shape, y.shape)
 
+    # Preprocess
+    x, y = get_resource('lstm_model').preprocess_video_landmarks(x, y)
+
     # Predict sign
     predicted_class = get_resource('lstm_model').predict(x, y)
 
@@ -57,6 +60,9 @@ def upload(landmarkObj: JsonLandmark):
 
     if(err):
         return Prediction(**{"prediction": "", "message": "Invalid landmarks object"})
+
+    # Preprocess
+    x, y = get_resource('lstm_model').preprocess_text_landmarks(x, y)
 
     # Predict sign
     predicted_class = get_resource('lstm_model').predict(x, y)

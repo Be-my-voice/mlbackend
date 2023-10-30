@@ -4,30 +4,48 @@ import numpy as np
 from app.dto.json_req_dto import JsonLandmark
 
 class LSTM():
-    def __init__(self, classes, max_frames = 120, step_size = 1):
+    def __init__(self, classes, highest_frame = 120, step_size = 1):
         self.classes = classes
-        self.max_frames = max_frames
+        self.highest_frame = highest_frame
         self.step_size = step_size
         self.lstm_model = tf.keras.models.load_model('./app/ml_models/six_class_model_3_frame_steps')
         self.lstm_model.summary()
 
-    
-    def preprocess(self, x, y):
+    # Add padding, limit number of frames and use steps to preprocess text landmarks
+    def preprocess_text_landmarks(self, x, y):
         # Pad numpy arrays if they are short
         # Calculate the amount of padding needed
-        padding_rows = max(0, self.max_frames - x.shape[0])
+        padding_rows = max(0, self.highest_frame - x.shape[0])
         x = np.pad(x, ((0, padding_rows), (0, 0)), mode='constant', constant_values=0)
         y = np.pad(y, ((0, padding_rows), (0, 0)), mode='constant', constant_values=0)
 
-        x = x[:self.max_frames:self.step_size, :]
-        y = y[:self.max_frames:self.step_size, :]
+        x = x[:self.highest_frame:self.step_size, :]
+        y = y[:self.highest_frame:self.step_size, :]
             
         # reshape to eg (1, 40, 12)
-        x = x.reshape((1, int(self.max_frames/self.step_size), 12))
-        y = y.reshape((1, int(self.max_frames/self.step_size), 12))
+        x = x.reshape((1, int(self.highest_frame/self.step_size), 12))
+        y = y.reshape((1, int(self.highest_frame/self.step_size), 12))
 
         return x, y
     
+    # Add padding, limit number of frames and use steps to preprocess video landmarks
+    def preprocess_video_landmarks(self, x, y):
+        # Pad numpy arrays if they are short
+        # Calculate the amount of padding needed
+        maximum_frames = int(self.highest_frame/self.step_size)
+        padding_rows = max(0, maximum_frames - x.shape[0])
+        x = np.pad(x, ((0, padding_rows), (0, 0)), mode='constant', constant_values=0)
+        y = np.pad(y, ((0, padding_rows), (0, 0)), mode='constant', constant_values=0)
+
+        x = x[:maximum_frames:, :]
+        y = y[:maximum_frames:, :]
+
+        # reshape to eg (1, 40, 12)
+        x = x.reshape((1, maximum_frames, 12))
+        y = y.reshape((1, maximum_frames, 12))
+
+        return x, y
+
     
     def find_class(self, value):
         for key, val in self.classes.items():
@@ -37,7 +55,6 @@ class LSTM():
 
 
     def predict(self, x, y):
-        x, y = self.preprocess(x, y)
         predicted_class = False
 
         try:
