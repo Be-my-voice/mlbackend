@@ -1,6 +1,8 @@
 import tensorflow as tf
 import numpy as np
 
+from app.dto.json_req_dto import JsonLandmark
+
 class LSTM():
     def __init__(self, classes, max_frames = 120, step_size = 1):
         self.classes = classes
@@ -50,3 +52,18 @@ class LSTM():
             print(f"Error: {e}")
         finally:
             return predicted_class
+        
+    def json_to_numpy(obj: JsonLandmark):
+        try:
+            x_arr = [[sublist[i] for i in range(0, len(sublist), 2)] for sublist in obj.landmarks]
+            y_arr = [[sublist[i] for i in range(1, len(sublist), 2)] for sublist in obj.landmarks]
+
+            x_arr = np.array(x_arr)
+            y_arr = np.array(y_arr)
+
+            return x_arr, y_arr
+        except Exception as e:
+            print(f"Error: {e}")
+
+            return False, False
+
