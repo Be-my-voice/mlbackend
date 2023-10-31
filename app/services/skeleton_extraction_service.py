@@ -8,6 +8,7 @@ mp_pose = mp.solutions.pose
 pose = mp_pose.Pose()
 
 def extract_skeleton(filename):
+    print("Extracting points from " + filename)
     data_x = []
     data_y = []
 
