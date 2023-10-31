@@ -100,18 +100,3 @@ def read_record(class_name: str, id: int):
     response.setLandmarks("Success")
     return response
 
-def add_record(record: AddRecord):
-    class_name = record.class_name
-
-    dataset_path = os.getenv("DATASET_PATH")
-    subdirectory_path = os.path.join(dataset_path, class_name)
-
-    
-    # Check if the directory exists
-    if not os.path.exists(subdirectory_path):
-        # os.mkdir(subdirectory_path)
-        pass
-    else:
-        # Add to existing class
-        pass
-

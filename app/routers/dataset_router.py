@@ -33,8 +33,3 @@ def list_classes(class_name):
 def list_classes(class_name, id):
     return read_record(class_name, id)
 
-
-@dataset_router.post("add-record")
-def add_record(record: AddRecord):
-    pass
-
