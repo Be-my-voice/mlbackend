@@ -2,7 +2,7 @@ from fastapi import APIRouter
 
 from app.utils.utils import base64ToVideo, remove_video_file
 from app.services.skeleton_extraction_service import extract_skeleton
-from app.services.video_adjustment_service import check_video_resolution, convert_to_720x720
+from app.services.video_adjustment_service import check_video_resolution, rescale_to_720x720, crop_and_resize_to_720x720
 from app.utils.async_utils import get_resource
 
 from app.dto.base64video_req_dto import Base64Video
@@ -27,12 +27,12 @@ def upload(video: Base64Video):
     status = check_video_resolution(fileName)
     
     if(status == 1):
-        convert_to_720x720(fileName)
+        fileName = rescale_to_720x720(fileName)
     elif(status == 2):
+        fileName = crop_and_resize_to_720x720(fileName)
+    elif(status == 3):
         remove_video_file(fileName)
         return Prediction(**{"prediction": "", "message": "Could not change resolation"})
-    else:
-        pass
     
     # Extract skeleton
     x, y = extract_skeleton(fileName)
